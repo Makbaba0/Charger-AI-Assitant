@@ -184,7 +184,8 @@ async function speakServer(text) {
     body: JSON.stringify({ text })
   });
   if (!response.ok) {
-    throw new Error("TTS request failed");
+    const detail = await response.text();
+    throw new Error(`TTS request failed: ${response.status} ${detail}`);
   }
   const blob = await response.blob();
   const url = URL.createObjectURL(blob);
@@ -438,6 +439,9 @@ loadContent();
 initRecognition();
 initVoice();
 checkServerTts();
+
+
+
 
 
 
