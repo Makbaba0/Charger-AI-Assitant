@@ -264,11 +264,22 @@ function pickRandom(list) {
   return list[Math.floor(Math.random() * list.length)];
 }
 
+function normalizeText(text) {
+  return text
+    .toLowerCase()
+    .replace(/ş/g, "s")
+    .replace(/ı/g, "i")
+    .replace(/ğ/g, "g")
+    .replace(/ç/g, "c")
+    .replace(/ö/g, "o")
+    .replace(/ü/g, "u");
+}
+
 function resolveIntent(text) {
-  const t = text.toLowerCase();
+  const t = normalizeText(text);
   const has = (re) => re.test(t);
 
-  if (has(/şarj\s*(işlemi)?\s*nasıl\s*başlat(?:ırım|irim|ılır|ilir|acağım|acagim)|şarj\s*başlat/i)) {
+  if (has(/sarj\s*(islemi)?\s*nasil\s*baslat(?:irim|ir|ilir|acagim|acagim|acam|cagim|cam)?|sarj\s*baslat/i)) {
     return "start_charge";
   }
 
@@ -440,7 +451,6 @@ loadContent();
 initRecognition();
 initVoice();
 checkServerTts();
-
 
 
 
