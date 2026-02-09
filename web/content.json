@@ -33,6 +33,10 @@
     "payment_issue": [
       "Ödeme ekranı gelmiyor veya ödeme alınamıyorsa şu kontrolü yapalım: Ödeme sayfası açıldı mı? Kart bilgisi sonrası hata mesajı çıktı mı? Başka bir tarayıcıyla denediniz mi? Ekrandaki hata mesajını aynen yazar mısınız?"
     ],
+    "connector_issue": [
+      "Uygun soket, aracınızın desteklediği tipe göre değişir. Aracınızın soket tipini (Type 2 / CCS / CHAdeMO) kontrol edin ve istasyondan aynı tipi seçin.",
+      "Soket uyumsuz görünüyorsa diğer uygun soketi seçin. Aracın desteklediği tipi bilmiyorsanız araç kullanım kılavuzuna bakabilirsiniz."
+    ],
     "stopped": [
       "Şarj yarıda kesildiyse nedenler şunlar olabilir: araç şarjı durdurdu, batarya doldu, ödeme süresi doldu, istasyon güvenlik nedeniyle kesti. Şarj kaç dakika sürdü ve kesildiğinde ekranda ne yazıyordu?"
     ],

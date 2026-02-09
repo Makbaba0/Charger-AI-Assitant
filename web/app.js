@@ -122,6 +122,7 @@ const intentSteps = {
   not_started: 2,
   qr_page_blank: 3,
   payment_issue: 5,
+  connector_issue: 4,
   stopped: 6,
   cable_locked: 2,
   pricing: 5,
@@ -452,7 +453,6 @@ loadContent();
 initRecognition();
 initVoice();
 checkServerTts();
-
 
 
 
