@@ -18,7 +18,9 @@ let currentAudio = null;
 
 const synth = window.speechSynthesis;
 let useServerTts = true;
-const serverTtsUrl = "http://localhost:5050/api/tts";
+const serverTtsUrl = "https://charger-ai-assitant-1.onrender.com/api/tts";
+
+
 
 const fallbackContent = {
   brand: "Örnek İstasyon Markası",
@@ -184,8 +186,7 @@ async function speakServer(text) {
     body: JSON.stringify({ text })
   });
   if (!response.ok) {
-    const detail = await response.text();
-    throw new Error(`TTS request failed: ${response.status} ${detail}`);
+    throw new Error("TTS request failed");
   }
   const blob = await response.blob();
   const url = URL.createObjectURL(blob);
@@ -439,10 +440,6 @@ loadContent();
 initRecognition();
 initVoice();
 checkServerTts();
-
-
-
-
 
 
 
