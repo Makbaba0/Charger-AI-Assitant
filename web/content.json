@@ -10,74 +10,157 @@
   ],
   "intents": {
     "start_charge": [
-      "Şarj işlemi, istasyonda hangi yöntemin aktif olduğuna göre değişir. QR, mobil uygulama veya RFID ile başlatabilirsiniz. Şu anda hangisini kullanıyorsunuz?"
+      "Şarjı başlatma yöntemi istasyona göre değişebilir. Lütfen hangisini kullandığını söyle: QR kod, mobil uygulama veya RFID kart. Buna göre sana adımları göstereyim."
     ],
     "start_qr": [
-      "QR ile başlatma adımları: Aracı park et, kabloyu tak, istasyon üzerindeki QR kodu okut, açılan sayfada istasyonu ve soketi seç, ‘Başlat’a bas, ödeme adımını tamamla. Ekranda ‘Charging / Şarj Ediliyor’ görmelisin. Şu anda ekranda tam olarak ne yazıyor?"
+      "QR ile başlatma: Aracı park et, kabloyu tak, istasyondaki QR kodu telefonunla okut, açılan sayfada soketi seç, ‘Başlat’a bas, ödeme adımını tamamla. Ekranda ‘Şarj ediliyor/Charging’ yazısını kontrol et. Şu anda hangi adımda kaldın?"
     ],
     "start_app": [
-      "Mobil uygulama ile: Aracı park et, kabloyu tak, uygulamayı aç, istasyon QR’ını okut veya istasyon numarasını gir, soketi seç, ‘Başlat’a bas, ödeme/onayı tamamla. Şarjın başladığını doğrulamak için ekranda ne görüyorsun?"
+      "Uygulama ile başlatma: Aracı park et, kabloyu tak, uygulamayı aç, istasyonu QR ile okut veya numarasını gir, soketi seç, ‘Başlat’a bas, ödeme/onayı tamamla. Şarj başladı mı kontrol edelim; ekranda ne görüyorsun?"
     ],
     "start_rfid": [
-      "RFID ile: Aracı park et, kabloyu tak, RFID kartını okuyucuya okut, istasyondan onay sesi veya ekran bildirimi bekle. Şarjın başladığını doğrulamak için ekranda ne yazıyor?"
+      "RFID ile başlatma: Aracı park et, kabloyu tak, RFID kartını okuyucuya okut, istasyondan onay mesajını bekle. Şarjın başladığını ekrandan kontrol et. Şu anda ekranda ne yazıyor?"
     ],
     "charge_started_check": [
-      "Şarjın başladığını anlamak için şu göstergelerden en az biri olmalı: istasyon ekranında ‘Charging/Şarj Ediliyor’, araç ekranında şarj animasyonu veya şarj göstergesinin artması. Bunlardan hangisini görüyorsun?"
+      "Şarjın başladığını anlamak için en az biri görülmeli: istasyonda ‘Charging/Şarj ediliyor’, araç ekranında şarj animasyonu, batarya yüzdesinin artması. Şu anda ne görüyorsun?"
     ],
     "not_started": [
-      "Kabloyu taktınız ama şarj başlamadıysa şu kontrolleri yapalım: Kablo iki tarafta da tam oturuyor mu? Araç kilidi açık mı? QR/uygulama işlemi tamamlandı mı? İstasyonda hata mesajı var mı? Ekranda tam olarak ne yazıyor?"
+      "Kabloyu taktın ama şarj başlamadıysa şunları kontrol edelim: Kablo iki tarafta da tam oturuyor mu? Başlatma adımını tamamladın mı? Ödeme adımı geçti mi? İstasyon veya telefon ekranında tam olarak ne yazıyor?"
     ],
     "qr_page_blank": [
-      "QR sayfası açılmıyor veya boş geliyorsa bağlantı kaynaklı olabilir. Mobil internet/Wi‑Fi açık mı? Tarayıcıdan başka bir site açılıyor mu? Sayfa tamamen beyaz mı yoksa hata mesajı mı var?"
+      "QR kodu okuttun ama sayfa açılmadıysa internet bağlantısı olabilir. Mobil veri veya Wi‑Fi açık mı? Tarayıcıdan başka bir site açılıyor mu? Sayfa beyaz mı yoksa hata mesajı mı var?"
+    ],
+    "qr_page_empty": [
+      "QR sayfası açıldı ama boşsa bağlantı zayıf olabilir. Tarayıcıyı kapatıp tekrar QR okutmayı dener misin?"
     ],
     "payment_issue": [
-      "Ödeme ekranı gelmiyor veya ödeme alınamıyorsa şu kontrolü yapalım: Ödeme sayfası açıldı mı? Kart bilgisi sonrası hata mesajı çıktı mı? Başka bir tarayıcıyla denediniz mi? Ekrandaki hata mesajını aynen yazar mısınız?"
+      "Ödeme ekranı gelmediyse veya ödeme yapamıyorsan: Ödeme sayfası hiç mi açılmadı, yoksa hata mı verdi? Ekranda çıkan mesajı aynen yazar mısın?"
     ],
-    "connector_issue": [
-      "Uygun soket, aracınızın desteklediği tipe göre değişir. Aracınızın soket tipini (Type 2 / CCS / CHAdeMO) kontrol edin ve istasyondan aynı tipi seçin.",
-      "Soket uyumsuz görünüyorsa diğer uygun soketi seçin. Aracın desteklediği tipi bilmiyorsanız araç kullanım kılavuzuna bakabilirsiniz."
+    "payment_card_failed": [
+      "Karttan ödeme alınmadıysa nedenler: kart reddedildi, internet kesildi, sistem geçici cevap vermedi. Ekrandaki hata mesajını aynen yazar mısın?"
     ],
     "stopped": [
-      "Şarj yarıda kesildiyse nedenler şunlar olabilir: araç şarjı durdurdu, batarya doldu, ödeme süresi doldu, istasyon güvenlik nedeniyle kesti. Şarj kaç dakika sürdü ve kesildiğinde ekranda ne yazıyordu?"
-    ],
-    "cable_locked": [
-      "Kabloyu çıkaramıyorsanız: önce uygulamadan/QR sayfasından şarjı durdurun, aracın kapı kilidini açın, araç ekranında ‘kabloyu serbest bırak’ varsa kullanın, birkaç saniye bekleyip tekrar deneyin. Kabloyu zorlamayın. Şu anda ekranda ne yazıyor?"
-    ],
-    "error_code": [
-      "Hata kodu görüyorsanız lütfen kodu aynen yazın. Bu bilgiye göre yönlendirme yapabilirim."
-    ],
-    "ac_dc": [
-      "AC şarj daha yavaştır ve uzun süreli parklar içindir. DC (hızlı şarj) çok daha hızlıdır. Süre, aracın desteklediği güce göre değişir."
+      "Şarj birkaç dakika sonra durduysa nedenler: batarya doldu, ödeme süresi doldu, araç otomatik sonlandırdı, güvenlik nedeniyle kesildi. Şarj durduğunda ekranda ne yazıyordu?"
     ],
     "slow_charge": [
-      "Şarjın yavaş olmasının yaygın nedenleri: araç yüksek gücü desteklemiyor olabilir, batarya %80 üzerindedir, istasyon gücü sınırlı olabilir, batarya sıcaklığı uygun değildir."
+      "Şarjın yavaş olmasının yaygın nedenleri: araç yüksek gücü desteklemiyor olabilir, batarya %80 üzerindedir, istasyon gücü sınırlıdır, batarya sıcaklığı uygun değildir. Hangi tip soketi kullanıyorsun, AC mi DC mi?"
     ],
-    "leave_car": [
-      "Evet, araçtan ayrılabilirsiniz. Ancak park kurallarına uyun ve şarj bittiğinde aracı mümkün olan en kısa sürede çekin."
+    "ac_dc": [
+      "AC şarj daha yavaştır ve uzun süreli parklar için uygundur. DC şarj daha hızlıdır ve kısa sürede daha fazla enerji verir."
     ],
-    "pricing": [
-      "Ücretlendirme kWh başına, dakika başına veya sabit oturum ücreti olabilir. Geçerli tarifeler QR sayfasında veya uygulamada görünür."
+    "dc_slow": [
+      "DC soket kullanırken bile hız, aracın desteklediği maksimum güce bağlıdır. Araç istasyon gücünü aşamaz."
     ],
-    "invoice": [
-      "Fatura/fiş genelde mobil uygulama → Geçmiş işlemler veya Profil → Ödemeler bölümünden indirilebilir. Şarjı hangi yöntemle başlattınız? (QR / Uygulama / RFID)"
+    "cable_locked": [
+      "Kabloyu çıkaramıyorsan: Şarjı uygulama/QR üzerinden durdur, aracın kilidini aç, araç ekranında ‘kabloyu serbest bırak’ varsa kullan, 10–15 saniye bekle ve tekrar dene. Kabloyu zorlayarak çekme."
+    ],
+    "cable_locked_reason": [
+      "Kablo kilitli kalması normaldir; şarj bitmeden veya durdurulmadan kablo serbest kalmaz. Şarjı gerçekten durdurduğundan emin misin?"
+    ],
+    "error_code": [
+      "Hata kodunu aynen yaz lütfen. Koduna göre açıklamasını söyleyeyim."
+    ],
+    "car_screen_error": [
+      "Araç ekranında hata var ama istasyonda bir şey yazmıyorsa araç taraflı uyarı olabilir. Araç ekranında tam olarak ne yazıyor?"
+    ],
+    "connector_issue": [
+      "Uygun soket, aracının desteklediği tipe göre değişir (Type 2 / CCS / CHAdeMO). Araç soket tipini kontrol edip istasyondan aynı tipi seçmelisin."
+    ],
+    "wrong_socket": [
+      "Yanlış sokete takıldıysa: Fiziksel olarak uyuyorsa sorun olmaz, fakat dolu bir soketten şarj başlatılamaz."
     ],
     "multi_charge": [
-      "Bu istasyonun kapasitesine bağlıdır. Bazı istasyonlarda iki soket aynı anda çalışır ve güç paylaşımı yapılır."
+      "Aynı anda iki araç şarj olabilir; bu istasyonun kapasitesine bağlıdır. Bazı istasyonlarda iki soket aynı anda çalışırken güç paylaşımı olur."
     ],
     "occupied_socket": [
-      "Hayır. Soket doluysa mevcut şarjın bitmesini beklemek gerekir."
+      "Hayır, bir soket aynı anda yalnızca bir araç için kullanılabilir."
     ],
     "charge_duration": [
-      "Süre; batarya kapasitesi, mevcut doluluk, istasyon gücü ve aracın desteklediği maksimum güce bağlıdır."
+      "Şarj süresi; batarya kapasitesi, mevcut doluluk, istasyon gücü ve aracın desteklediği maksimum güce bağlıdır. Net süre verilemez."
     ],
-    "safety": [
-      "Güvenlik uyarıları: Hasarlı kabloyu kullanmayın, kabloyu zorlamayın, yağmur altında fiş girişini zorlamayın, çocukların kabloyla oynamasına izin vermeyin."
+    "leave_car": [
+      "Evet, araçtan ayrılabilirsin; ancak şarj bittikten sonra aracı mümkün olan en kısa sürede çekmelisin."
+    ],
+    "auto_stop": [
+      "Evet, batarya dolduğunda araç veya sistem şarjı otomatik sonlandırır."
+    ],
+    "manual_stop": [
+      "Şarjı manuel durdurmak için genelde mobil uygulama, QR sayfası veya ‘Durdur/Bitir’ seçeneği kullanılır. Şu an hangi yöntemi kullanıyorsun?"
+    ],
+    "cancel_start": [
+      "Evet, şarjı başlattığın ekran üzerinden iptal edebilirsin."
+    ],
+    "stop_but_cable": [
+      "Şarjı durdurdun ama kablo çıkmıyorsa 10–15 saniye bekle ve tekrar dene. Araç kilidinin açık olduğundan emin ol."
+    ],
+    "pricing": [
+      "Ücretlendirme istasyona göre kWh bazlı, dakika bazlı veya sabit oturum ücretli olabilir. Güncel tarife QR veya uygulama ekranında görünür."
+    ],
+    "preauth": [
+      "Bazı sistemlerde şarj başlamadan önce provizyon çekilebilir. Kesin tutar şarj bittikten sonra belirlenir."
+    ],
+    "invoice": [
+      "Fatura/fiş genelde uygulama → Geçmiş işlemler veya Profil → Ödemeler bölümünden alınır. Şarjı hangi yöntemle başlatmıştın?"
+    ],
+    "company_invoice": [
+      "Şirket faturası, uygulama veya ödeme sisteminin politikasına bağlıdır. Profil veya fatura ayarlarından kontrol edebilirsin."
+    ],
+    "unplug_during": [
+      "Şarj sırasında fişi çıkarırsan şarj otomatik durur; kilitliyse fişi zorlamamalısın."
+    ],
+    "rain_safety": [
+      "Yağmurda şarj yapmak genelde güvenlidir. Hasarlı kablo kullanma ve soketi zorlamadan tak/çıkar."
+    ],
+    "extension_cable": [
+      "Uzatma kablosu kullanma. Şarj işlemi yalnızca istasyonun kendi kablosu ile yapılmalıdır."
+    ],
+    "other_brand": [
+      "Evet, soket uyumu varsa farklı marka araçlar kullanılabilir."
+    ],
+    "station_compat": [
+      "Aracının soket tipine ve desteklediği şarj türüne bağlıdır. Hangi soketi kullanıyorsun?"
+    ],
+    "lock_doors": [
+      "Evet, araç kilitlenebilir; şarj devam eder."
+    ],
+    "stop_others": [
+      "Hayır. Başkasının şarj oturumuna müdahale edilemez."
+    ],
+    "extra_fees": [
+      "Ek ücretler istasyon politikasına bağlıdır. Bazı lokasyonlarda şarj bittikten sonra park ücreti uygulanabilir."
     ],
     "support": [
-      "Çözüm olmazsa istasyon üzerindeki destek hattını arayın veya destek QR bağlantısından canlı destek talebi oluşturun."
+      "Çözemediysek en doğru adım istasyon üzerindeki destek hattını aramak veya destek QR bağlantısından yardım talebi oluşturmaktır."
     ],
-    "critical_questions": [
-      "Sorunu netleştirelim: Şarjı hangi yöntemle başlatıyorsun? Şu anda hangi ekrandasın? Ekranda tam olarak ne yazıyor? Hata kodu var mı? Kabloyu taktıktan sonra ne yaptın?"
+    "why_ask_screen": [
+      "İstasyonla doğrudan bağlantım yok. Seni doğru yönlendirebilmem için ekranda gördüğün mesajı bilmem gerekiyor."
+    ],
+    "unsure_started": [
+      "İstasyon veya araç ekranında ‘şarj ediliyor’ benzeri bir ifade görüyor musun?"
+    ],
+    "phone_off": [
+      "Telefon kapanırsa şarj devam eder. Telefon sadece kontrol ve görüntüleme içindir."
+    ],
+    "multi_user": [
+      "Aynı hesabın birden fazla kişi tarafından kullanılabilirliği, uygulamanın politikasına bağlıdır."
+    ],
+    "change_socket": [
+      "Şarjı durdurmadan soket değiştirilemez. Önce durdurman gerekir."
+    ],
+    "wrong_station": [
+      "Şarj başlamadıysa geri dönüp doğru istasyonu seçebilirsin. Şarj başladıysa önce durdurmalısın."
+    ],
+    "station_busy": [
+      "Soket doluysa yeni şarj başlatılamaz. Boş soket varsa onu seçmelisin."
+    ],
+    "station_not_working": [
+      "İstasyon çalışmıyor gibi görünüyorsa ekranda hata mesajı var mı? Varsa aynen yaz."
+    ],
+    "app_closed": [
+      "Uygulama kapandıysa tekrar açıp işlem geçmişine bakabilirsin. Şarj devam ediyorsa ekranda ‘charging’ görürsün."
+    ],
+    "safety": [
+      "Güvenlik: Hasarlı kablo kullanma, soketi zorlamadan tak/çıkar, kabloyu zorlayarak çekme, çocukların kabloyla oynamasına izin verme."
     ],
     "greeting": [
       "Merhaba! {brand} şarj istasyonunda size yardımcı olabilirim."
@@ -86,7 +169,7 @@
       "İyiyim, teşekkür ederim. Şarj işlemini başlatmanız için buradayım."
     ],
     "help": [
-      "Şarj başlatma, QR, uygulama, RFID, ödeme, hata kodları ve güvenlik konularında yardımcı olabilirim. Sorununuzu kısaca anlatır mısınız?"
+      "Şarj başlatma, QR, uygulama, RFID, ödeme, soket, hata kodları ve güvenlik konularında yardımcı olabilirim. Sorunu kısaca anlatır mısın?"
     ],
     "fallback": [
       "Bu konuda yardımcı olamıyorum. Şarj başlatma ile ilgili bir soru sorabilir misiniz?"

@@ -121,12 +121,21 @@ const intentSteps = {
   start_rfid: 3,
   not_started: 2,
   qr_page_blank: 3,
+  qr_page_empty: 3,
   payment_issue: 5,
   connector_issue: 4,
+  payment_card_failed: 5,
+  wrong_socket: 4,
   stopped: 6,
   cable_locked: 2,
-  pricing: 5,
-  invoice: 5
+  cable_locked_reason: 2,
+  manual_stop: 4,
+  cancel_start: 4,
+  stop_but_cable: 2,
+  preauth: 5,
+  invoice: 5,
+  company_invoice: 5,
+  pricing: 5
 };
 
 function setStatus(text) {
@@ -280,46 +289,76 @@ function resolveIntent(text) {
   const t = normalizeText(text);
   const has = (re) => re.test(t);
 
-  if (has(/sarj\s*(islemi)?\s*nasil\s*baslat(?:irim|ir|ilir|acagim|acagim|acam|cagim|cam)?|sarj\s*baslat/i)) {
-    return "start_charge";
-  }
+  if (has(/sarj\s*(islemi)?\s*nasil\s*baslat|sarj\s*baslat/i)) return "start_charge";
+  if (has(/hata\s*kodu|error\s*code|e\d{2,}/i)) return "error_code";
 
-  if (has(/\bhata kodu\b|error code|e\d{2,}/i)) return "error_code";
-
-  if (has(/\bqr\b|qr kod|qr ile|qr okut|qr okuttum|kod okuttum/i)) {
-    if (has(/açılmadı|açılmıyor|boş sayfa|sayfa açılmadı|boş geldi/i)) return "qr_page_blank";
+  if (has(/\bqr\b|qr\s*kod|qr\s*ile|qr\s*okut|qr\s*okuttum|kod\s*okuttum/i)) {
+    if (has(/acilmadi|acilmiyor|bos\s*sayfa|sayfa\s*acilmadi|bos\s*geldi/i)) return "qr_page_blank";
+    if (has(/bos\s*g[eo]runuyor|bos\s*sayfa/i)) return "qr_page_empty";
     return "start_qr";
   }
 
-  if (has(/rfid|kartla|kart ile/i)) return "start_rfid";
-  if (has(/uygulama|mobil uygulama|app|uygulamadan/i)) return "start_app";
+  if (has(/rfid|kartla|kart\s*ile/i)) return "start_rfid";
+  if (has(/uygulama|mobil\s*uygulama|app|uygulamadan/i)) return "start_app";
 
-  if (has(/şarj (başladı mı|başladı|başladığını)|nasıl anlarım|charging/i)) return "charge_started_check";
-  if (has(/kabloyu çıkaramıyorum|kablo çıkmıyor|kilitli kaldı|sıkıştı/i)) return "cable_locked";
-  if (has(/yarıda kesildi|aniden durdu|şarj durdu|koptu|kesildi/i)) return "stopped";
+  if (has(/sarj\s*(basladi|basladi\s*mi|basladigini)|nasil\s*anlarim|charging/i)) return "charge_started_check";
+  if (has(/kabloyu\s*cikaramiyorum|kablo\s*cikmiyor|kilitli\s*kaldi|sikisti/i)) return "cable_locked";
+  if (has(/kablo\s*kilitli|kilitli\s*kablo/i)) return "cable_locked_reason";
+  if (has(/yarida\s*kesildi|aniden\s*durdu|sarj\s*durdu|koptu|kesildi/i)) return "stopped";
 
-  if (has(/odeme|ucret|fiyat|tarife|\bkwh\b|kilovat|dakika basina|dakika/i)) {
-    if (has(/yapamiyorum|olmuyor|basarisiz|hata|problem|sorun|gelmedi|alinmadi|alinamadi/i)) {
-      return "payment_issue";
-    }
+  if (has(/odeme/i)) {
+    if (has(/yapamiyorum|olmuyor|basarisiz|hata|problem|sorun|gelmedi|alinmadi|alinamadi/i)) return "payment_issue";
+    if (has(/kart|reddedildi/i)) return "payment_card_failed";
     return "pricing";
   }
 
-  if (has(/başlamıyor|başlamadı|şarj başlamıyor|kabloyu taktım ama|çalışmıyor/i)) return "not_started";
+  if (has(/ucret|fiyat|tarife|\bkwh\b|kilovat|dakika\s*basina|dakika/i)) return "pricing";
+  if (has(/provizyon|on\s*provizyon|para\s*cekilir|on\s*cekim/i)) return "preauth";
+
+  if (has(/baslamiyor|baslamadi|sarj\s*baslamiyor|kabloyu\s*taktim\s*ama|calismiyor/i)) return "not_started";
 
   if (has(/soket|hangi\s*soket|uygun\s*soket|soket\s*uyumsuz/i)) return "connector_issue";
-  if (has(/ac\s*şarj|dc\s*şarj|ac\s*\/\s*dc|hızlı şarj|farkı nedir/i)) return "ac_dc";
-  if (has(/yavaş|neden yavaş|yavaş şarj/i)) return "slow_charge";
-  if (has(/araçtan ayrılabilir|aracımı bırakabilir|park|bırakabilir miyim/i)) return "leave_car";
-  if (has(/fatura|fiş|makbuz/i)) return "invoice";
-  if (has(/aynı anda|birden fazla araç|iki araç/i)) return "multi_charge";
-  if (has(/başkasının soketi|soket dolu|dolu soket/i)) return "occupied_socket";
-  if (has(/ne kadar sürer|şarj süresi|kaç dakika/i)) return "charge_duration";
-  if (has(/güvenlik|uyarı|tehlike/i)) return "safety";
-  if (has(/destek|müşteri hizmetleri|yardım hattı/i)) return "support";
-  if (has(/yardım|tekrar|anlamadım/i)) return "help";
-  if (has(/merhaba|selam|günaydın|iyi akşamlar|iyi günler/i)) return "greeting";
-  if (has(/nasılsın|iyi misin|naber|ne haber/i)) return "how_are_you";
+  if (has(/yanlis\s*soket|uygun\s*degil\s*soket/i)) return "wrong_socket";
+
+  if (has(/ac\s*sarj|dc\s*sarj|ac\s*\/\s*dc|hizli\s*sarj|farki\s*nedir/i)) return "ac_dc";
+  if (has(/dc\s*soket|dc\s*yavas/i)) return "dc_slow";
+  if (has(/yavas|neden\s*yavas|yavas\s*sarj/i)) return "slow_charge";
+
+  if (has(/aractan\s*ayrilabilir|aracimi\s*birakabilir|birakabilir\s*miyim|park/i)) return "leave_car";
+  if (has(/otomatik\s*durdur|bitince\s*durur|otomatik\s*sonlanir/i)) return "auto_stop";
+  if (has(/manuel\s*durdur|nasil\s*durdururum|durdur/i)) return "manual_stop";
+  if (has(/yanlislikla\s*baslattim|iptal\s*edebilir/i)) return "cancel_start";
+  if (has(/durdurdum\s*ama\s*kablo\s*cikmiyor/i)) return "stop_but_cable";
+
+  if (has(/fatura|fis|makbuz/i)) return "invoice";
+  if (has(/sirket\s*faturasi/i)) return "company_invoice";
+  if (has(/fisi\s*cikarirsam|fis\s*cikarirsam/i)) return "unplug_during";
+  if (has(/yagmur/i)) return "rain_safety";
+  if (has(/uzatma\s*kablo/i)) return "extension_cable";
+  if (has(/farkli\s*marka|baska\s*marka/i)) return "other_brand";
+  if (has(/uygun\s*mu|istasyona\s*uygun/i)) return "station_compat";
+  if (has(/kapilari\s*kilitle|kilitleyebilir\s*miyim/i)) return "lock_doors";
+  if (has(/baskasinin\s*sarjini\s*durdur/i)) return "stop_others";
+  if (has(/ek\s*ucret/i)) return "extra_fees";
+
+  if (has(/neden\s*ekranda\s*ne\s*yaziyor/i)) return "why_ask_screen";
+  if (has(/emin\s*degilim|basladi\s*mi\s*emin\s*degilim/i)) return "unsure_started";
+  if (has(/telefonum\s*kapanirsa/i)) return "phone_off";
+  if (has(/ayni\s*hesap|birden\s*fazla\s*kisi/i)) return "multi_user";
+  if (has(/baska\s*sokete\s*gec/i)) return "change_socket";
+  if (has(/yanlis\s*istasyon/i)) return "wrong_station";
+  if (has(/istasyon\s*mesgul/i)) return "station_busy";
+  if (has(/istasyon\s*calismiyor/i)) return "station_not_working";
+  if (has(/uygulama\s*kapandi/i)) return "app_closed";
+
+  if (has(/ayni\s*anda|birden\s*fazla\s*arac|iki\s*arac/i)) return "multi_charge";
+  if (has(/baskasinin\s*soketi|soket\s*dolu|dolu\s*soket/i)) return "occupied_socket";
+  if (has(/ne\s*kadar\s*surer|sarj\s*suresi|kac\s*dakika/i)) return "charge_duration";
+  if (has(/guvenlik|uyari|tehlike/i)) return "safety";
+  if (has(/destek|musteri\s*hizmetleri|yardim\s*hatti|cozemiyorum/i)) return "support";
+  if (has(/yardim|tekrar|anlamadim/i)) return "help";
+  if (has(/merhaba|selam|gunaydin|iyi\s*aksamlar|iyi\s*gunler/i)) return "greeting";
+  if (has(/nasilsin|iyi\s*misin|naber|ne\s*haber/i)) return "how_are_you";
 
   return "fallback";
 }
@@ -453,7 +492,6 @@ loadContent();
 initRecognition();
 initVoice();
 checkServerTts();
-
 
 
 
