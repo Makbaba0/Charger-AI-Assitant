@@ -297,12 +297,12 @@ function resolveIntent(text) {
   if (has(/kabloyu çıkaramıyorum|kablo çıkmıyor|kilitli kaldı|sıkıştı/i)) return "cable_locked";
   if (has(/yarıda kesildi|aniden durdu|şarj durdu|koptu|kesildi/i)) return "stopped";
 
-  if (has(/ödeme/i)) {
-    if (has(/gelmedi|alınmadı|alınamadı|hata|problem|sorun|başarısız/i)) return "payment_issue";
+  if (has(/odeme|ucret|fiyat|tarife|\bkwh\b|kilovat|dakika basina|dakika/i)) {
+    if (has(/yapamiyorum|olmuyor|basarisiz|hata|problem|sorun|gelmedi|alinmadi|alinamadi/i)) {
+      return "payment_issue";
+    }
     return "pricing";
   }
-
-  if (has(/ücret|fiyat|tarife|\bkwh\b|kilovat|dakika başına|dakika/i)) return "pricing";
 
   if (has(/başlamıyor|başlamadı|şarj başlamıyor|kabloyu taktım ama|çalışmıyor/i)) return "not_started";
 
@@ -451,7 +451,6 @@ loadContent();
 initRecognition();
 initVoice();
 checkServerTts();
-
 
 
 
