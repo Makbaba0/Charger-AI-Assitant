@@ -306,6 +306,7 @@ function resolveIntent(text) {
 
   if (has(/başlamıyor|başlamadı|şarj başlamıyor|kabloyu taktım ama|çalışmıyor/i)) return "not_started";
 
+  if (has(/soket|hangi\s*soket|uygun\s*soket|soket\s*uyumsuz/i)) return "connector_issue";
   if (has(/ac\s*şarj|dc\s*şarj|ac\s*\/\s*dc|hızlı şarj|farkı nedir/i)) return "ac_dc";
   if (has(/yavaş|neden yavaş|yavaş şarj/i)) return "slow_charge";
   if (has(/araçtan ayrılabilir|aracımı bırakabilir|park|bırakabilir miyim/i)) return "leave_car";
@@ -451,7 +452,6 @@ loadContent();
 initRecognition();
 initVoice();
 checkServerTts();
-
 
 
 
